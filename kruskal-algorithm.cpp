@@ -1,104 +1,87 @@
-#include <bits/stdc++.h>
 
+#include <algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-using ll = long long;
+#define edge pair<int, int>
 
-#define rep(i,a,n) for (int i=a;i<n;i++)
-#define per(i,a,n) for (int i=n-1;i>=a;i--)
-#define pb push_back
-#define mp make_pair
-#define all(x) (x).begin(),(x).end()
-#define ff first
-#define ss second
-
-const ll mod = 1e9 + 7;
-
-
-class dsu {
-
-	vector<int> par, rank;
-	int N;
-
-public:
-	
-	dsu(int N) {
-		this -> N = N;
-
-		par.resize(N);
-		rank.resize(N);
-		
-		for(int i = 0; i < N; ++i) {
-			par[i] = i;
-			rank[i] = 0;
-		}
-	}
-
-	int get(int x) {
-		return par[x] == x ? x : par[x] = get(par[x]);
-	}
-
-	void unite(int x, int y) {
-		int s1 = get(x);
-		int s2 = get(y);
-
-		if(s1 != s2) {
-
-			if(rank[s2] < rank[s1]) {
-				par[s2] = s1;
-				rank[s1] += rank[s2];
-			} else {
-				par[s1] = s2;
-				rank[s2] += rank[s1];
-			}	
-		}
-
-		return;
-	}
-
-	void output() {
-		for(int i = 0; i < N; ++i) {
-			printf("%d ", par[i]);
-		}puts("");
-	}
-
+class Graph {
+   private:
+  vector<pair<int, edge> > G; 
+  vector<pair<int, edge> > T; 
+  int *parent;
+  int V; 
+   public:
+  Graph(int V);
+  void AddWeightedEdge(int u, int v, int w);
+  int find_set(int i);
+  void union_set(int u, int v);
+  void kruskal();
+  void print();
 };
+Graph::Graph(int V) {
+  parent = new int[V];
 
+  for (int i = 0; i < V; i++)
+    parent[i] = i;
 
-void solve() {
-	
-	int N, M;
-	scanf("%d%d", &N, &M);
+  G.clear();
+  T.clear();
+}
+void Graph::AddWeightedEdge(int u, int v, int w) {
+  G.push_back(make_pair(w, edge(u, v)));
+}
+int Graph::find_set(int i) {
+  if (i == parent[i])
+    return i;
+  else
 
-	vector<pair<int, pair<int, int> >> edges(M);
-
-	rep(i, 0, M) {
-		scanf("%d%d%d", &edges[i].ss.ff, &edges[i].ss.ss, &edges[i].ff);
-	}
-
-	sort(all(edges));
-
-	dsu D(N);
-
-	int cost = 0;	
-
-	for(auto x:edges) {
-		
-		if(D.get(x.ss.ff) != D.get(x.ss.ss)) {
-			D.unite(x.ss.ff, x.ss.ss);
-			cost += x.ff;
-		}
-	}
-
-	printf("%d\n", cost);
-
-	return;
+    return find_set(parent[i]);
 }
 
-
+void Graph::union_set(int u, int v) {
+  parent[u] = parent[v];
+}
+void Graph::kruskal() {
+  int i, uRep, vRep;
+  sort(G.begin(), G.end()); 
+  for (i = 0; i < G.size(); i++) {
+    uRep = find_set(G[i].second.first);
+    vRep = find_set(G[i].second.second);
+    if (uRep != vRep) {
+      T.push_back(G[i]); 
+      union_set(uRep, vRep);
+    }
+  }
+}
+void Graph::print() {
+  cout << "Edge :"
+     << " Weight" << endl;
+  for (int i = 0; i < T.size(); i++) {
+    cout << T[i].second.first << " - " << T[i].second.second << " : "
+       << T[i].first;
+    cout << endl;
+  }
+}
 int main() {
-
-	solve();
-
-	return 0;
+  Graph g(6);
+  g.AddWeightedEdge(0, 1, 4);
+  g.AddWeightedEdge(0, 2, 4);
+  g.AddWeightedEdge(1, 2, 2);
+  g.AddWeightedEdge(1, 0, 4);
+  g.AddWeightedEdge(2, 0, 4);
+  g.AddWeightedEdge(2, 1, 2);
+  g.AddWeightedEdge(2, 3, 3);
+  g.AddWeightedEdge(2, 5, 2);
+  g.AddWeightedEdge(2, 4, 4);
+  g.AddWeightedEdge(3, 2, 3);
+  g.AddWeightedEdge(3, 4, 3);
+  g.AddWeightedEdge(4, 2, 4);
+  g.AddWeightedEdge(4, 3, 3);
+  g.AddWeightedEdge(5, 2, 2);
+  g.AddWeightedEdge(5, 4, 3);
+  g.kruskal();
+  g.print();
+  return 0;
 }
