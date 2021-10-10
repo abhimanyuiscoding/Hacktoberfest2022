@@ -39,21 +39,17 @@ Node *takeinput()
 
 int findNodeRec(Node *head, int n)
 {
-
-    if (head == NULL)
-    {
-        return -1;
-    }
-    if (head->data == n)
-    {
-        return 0;
-    }
-    int count = findNodeRec(head->next, n);
-    if (count == -1)
-    {
-        return -1;
-    }
-    return count + 1;
+    
+    int index = 0;              
+	Node * temp = head;
+	while(temp!=NULL){
+		if(temp->n == n){         
+			return index;               
+		}
+		temp = temp->next;
+		index++;
+	}   
+	return -1;         
 }
 
 int main()
