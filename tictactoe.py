@@ -34,7 +34,7 @@ class TicTacToe:
             if win:
                 return win
 
-        # checking columns
+        # Checking columns
         for i in range(n):
             win = True
             for j in range(n):
