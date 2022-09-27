@@ -1,0 +1,36 @@
+//binary search for ascending sorted array
+
+#include <iostream>
+using namespace std;
+
+int main(){
+	int n;
+	cout<<"enter the number of elements: ";
+	cin>>n;
+	int arr[n];
+	cout<<"\nenter the elements of array: ";
+	for(int i=0; i<n; i++){
+		cin>>arr[i];
+	}
+	int search;
+	cout<<"\nenter the element that you want to search: ";
+	cin>>search;
+	int start=0;
+	int end=n-1;
+	while(start<=end){
+		int mid=(start+((end-start)/2));
+		if(search==arr[mid]){
+			cout<<mid<<endl;
+			return 0;
+		}
+		else if(search>arr[mid]){
+			start=mid+1;
+		}
+		else{
+			end=mid-1;
+		}
+		
+	}
+	
+	return 0;
+}
