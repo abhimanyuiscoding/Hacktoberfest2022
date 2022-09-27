@@ -1,5 +1,11 @@
 # Hacktoberfest2021
 This is a hacktoberfest repository.
-No more pull requests are to be accepted now since this repository is closed.
-Again, I would like to thanks to all of you for participating. 
+
+The repository is open to accept PR's for Hacktoberfest 2022.
+Quality Pull requests only.
+
+
+Happy Hacking! Happy Hacktoberfest!
+
+
 Happy coding </>.
