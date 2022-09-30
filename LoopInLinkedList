@@ -1,0 +1,101 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node {
+    public: 
+    int data;
+    node *next;
+    
+    node(int data) {
+        this -> data = data;
+        next = NULL;
+    }
+};
+
+node *input_data() {
+    int data;
+    cin >> data;
+    
+    node *head = NULL;
+    node *tail = NULL;
+    
+    while(data != -1) {
+        node *newNode = new node(data);
+        
+        if(head == NULL) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail -> next = newNode;
+            tail = newNode;
+        }
+        cin >> data;
+    }
+    return head;
+}
+
+// this algorithm is taking extra time =>
+/* bool detectLoop(node *head) {
+    if(head == NULL) {
+        return false;
+    }
+    // head -> next -> next = head -> next;         For checking loop detection
+    map<node *, bool> visited;
+    
+    node *temp = head;
+    
+    while(temp != NULL) {
+        if(visited[temp] == true) {
+            return true;
+        } 
+        visited[temp] = true;
+        temp = temp -> next;
+    }
+    return false;
+} */
+
+// Floyd Loop detection algorithm (uses the concept of slow and fast pointers)
+
+node *detectLoop(node *head) {
+    if(head == NULL) {
+        return NULL;
+    }
+    // else using the slow and fast pointers
+    node *slow = head;
+    node *fast = head;
+    
+    // head -> next -> next = head -> next;     
+    
+    while(slow != NULL && fast != NULL) {
+        fast = fast -> next;
+        if(fast -> next != NULL) {
+            fast = fast -> next;
+        }
+        slow = slow -> next;
+        
+        if(slow == fast) {
+            cout << "present at " << slow -> data;
+            return slow;
+        } 
+    }
+    return NULL;
+}
+
+void print(node *head) {
+    node *temp = head;
+    while(temp != NULL) {
+        cout << temp -> data << " ";
+        temp = temp -> next;
+    } cout << endl;
+}
+
+int main() {
+    node *head = input_data();
+    print(head);
+    
+    if(detectLoop(head) != NULL) {
+        cout << "Loop detected" << endl;
+    } else {
+        cout << "Loop not detected" << endl;
+    }
+}
