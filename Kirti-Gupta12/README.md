@@ -1,4 +1,4 @@
-[## LEETCODE - 42
+## LEETCODE - 42
 # [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/description/)
 
 
