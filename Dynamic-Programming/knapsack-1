@@ -1,0 +1,72 @@
+/*
+░░░░░░░░░▄░░░░░░░░░░░░░░▄░░░░
+░░░░░░░░▌▒█░░░░░░░░░░░▄▀▒▌░░░
+░░░░░░░░▌▒▒█░░░░░░░░▄▀▒▒▒▐░░░
+░░░░░░░▐▄▀▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐░░░
+░░░░░▄▄▀▒░▒▒▒▒▒▒▒▒▒█▒▒▄█▒▐░░░
+░░░▄▀▒▒▒░░░▒▒▒░░░▒▒▒▀██▀▒▌░░░
+░░▐▒▒▒▄▄▒▒▒▒░░░▒▒▒▒▒▒▒▀▄▒▒▌░░
+░░▌░░▌█▀▒▒▒▒▒▄▀█▄▒▒▒▒▒▒▒█▒▐░░
+░▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒░░░▒▒▒▀▄▌░
+░▌░▒▄██▄▒▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▌░
+▀▒▀▐▄█▄█▌▄░▀▒▒░░░░░░░░░░▒▒▒▐░
+▐▒▒▐▀▐▀▒░▄▄▒▄▒▒▒▒▒▒░▒░▒░▒▒▒▒▌
+▐▒▒▒▀▀▄▄▒▒▒▄▒▒▒▒▒▒▒▒░▒░▒░▒▒▐░
+░▌▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒░▒░▒░▒░▒▒▒▌░
+░▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▒▄▒▒▐░░
+░░▀▄▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▄▒▒▒▒▌░░
+░░░░▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀░░░
+░░░░░░▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀░░░░░
+░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▀▀░░░░░░░░
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define lli long long int
+#define vi vector<int>
+#define vvi vector<vi>
+#define vll vector<long long>
+#define vb vector<bool>
+#define pb push_back
+#define pii pair<int,int>
+#define all(x) x.begin(),x.end()
+
+ll dp[101][100001];
+
+ll func(ll wt[],ll val[],ll w,ll n){
+    if(w==0 || n==-1){
+        return 0;
+    }
+    if(dp[n][w]!=-1){
+        return dp[n][w];
+    }
+    // don't choose
+    long long ans=func(wt,val,w,n-1);
+    // choose
+    if(w-wt[n]>=0){
+        ans=min(ans,val[n]+func(wt,val,w-wt[n],n-1));
+    }
+    return dp[n][w]=ans;
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    memset(dp,-1,sizeof(dp));
+    ll n,w;
+    cin>>n>>w;
+    ll wt[n],val[n];
+    for(ll i=0;i<n;i++){
+        ll w1,v1;
+        cin>>w1>>v1;
+        wt[i]=w1;
+        val[i]=v1;
+    }
+
+    cout<<func(wt,val,w,n-1)<<endl;
+
+    return 0;
+    // mere code m ho jaoge gum...de***** c****** ho tum A_F
+}
