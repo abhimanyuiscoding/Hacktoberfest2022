@@ -1,5 +1,3 @@
-# This repo is excluded from Hacktoberfest-2022
-
 # Hacktoberfest2022
 This is a hacktoberfest repository.
 
