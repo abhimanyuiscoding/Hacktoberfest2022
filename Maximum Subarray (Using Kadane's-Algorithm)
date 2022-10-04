@@ -1,0 +1,32 @@
+//The idea of Kadane’s algorithm is to maintain a variable Max_sum that stores the maximum sum of contiguous subarray ending at current index and a variable curr_max //stores the maximum sum of contiguous subarray found so far, Everytime there is a positive-sum value in Max_sum compare it with curr_max and update Max_sum if it is //greater than curr_max.
+
+
+
+//Here what we will do is first we will initialize the sum which is curr_sum as "0" and large_sum (Max_sum) as nums[0](first element of the array index) and then we will //use a for loop and will add the sum if sum is greater than the large_sum then we will update large_sum by that value and if sum is less than zero the make sum as zero //and return large_sum.
+
+//-------------IN LEETCODE MAXIMUM SUBARRAY-----------------
+
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) 
+    {
+        int sum=0;
+        int large_sum=nums[0];
+        for(int i=0;i<nums.size();i++)
+        {
+            sum+=nums[i];
+            
+         if(large_sum<sum)
+         {
+             large_sum=sum;
+         }
+             if(sum<0)
+             {
+                 sum=0;
+             }
+            
+        }
+        return large_sum;
+    }
+};
