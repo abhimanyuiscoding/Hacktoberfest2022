@@ -1,0 +1,39 @@
+Problem Statement 
+
+Write a program which accepts two given String and checks if they are the rotation of each. If they then return true otherwise return false. A String is said to be a rotation of other string if they contain same characters and the sequence is rotated across any character, e.g. "dabc" is a rotation of "abcd" but "dbac" is not.
+
+
+Example 
+Input
+abcd 
+abcd
+Output
+true
+
+Explanation: In the given example, we can see that the characters of string abcd is rotated to the right by two characters. Hence, the strings are the rotation of each other.
+
+Input
+abcd 
+bcda
+Output
+true
+
+public class Main {
+    
+    public static boolean checkRotation(String str1, String str2){
+        // Write your code here
+        if(str1.length() != str2.length()){
+            return false;
+        }
+        
+        String s = str1 + str1;
+        return s.contains(str2);
+    }
+    
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		String str1=sc.next();
+		String str2=sc.next();
+		System.out.println(checkRotation(str1, str2));
+	}
+}
