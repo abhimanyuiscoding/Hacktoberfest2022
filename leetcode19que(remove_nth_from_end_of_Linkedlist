@@ -1,0 +1,114 @@
+#include <iostream>
+using namespace std;
+class ListNode
+{
+public:
+    int val;
+    ListNode *next;
+    ListNode()
+    {
+        val = 0;
+        next = NULL;
+    }
+    ListNode(int x)
+    {
+        val = x;
+        next = NULL;
+    }
+    ListNode(int x, ListNode *next)
+    {
+        val = x;
+        this->next = next;
+    }
+    void display(ListNode *p)
+    {
+        while (p)
+        {
+            cout << p->val << " ";
+            p = p->next;
+        }
+    }
+
+    
+};
+
+class Solution
+{
+public:
+    ListNode *head;
+    int length(ListNode *p)
+    {
+        int length = 0;
+
+        while (p != NULL)
+        {
+            length++;
+            p = p->next;
+        }
+        return length;
+    }
+
+    ListNode *removeNthFromEnd(ListNode *head, int n)
+    {
+
+        int len = length(head);
+        int f = ((len - n) + 1);
+
+        ListNode *p = head;
+        ListNode *q = head;
+        for (int i = 0; i < f - 1; i++)
+        {
+            q = p;
+            p = p->next;
+        }
+            if (p == head)
+            {
+                q = q->next;
+                head = head->next;
+                delete p;
+                p = head;
+            }
+            else
+            {
+                q->next = p->next;
+                delete p;
+                p = p->next;
+            }
+        
+        return head;
+    }
+};
+
+int main()
+{
+    int no_of_ele;
+    cin >> no_of_ele;
+    int x;
+    cin >> x;
+    ListNode *head = new ListNode(x);
+    ListNode *temp, *p;
+    temp = head;
+    for (int i = 1; i < no_of_ele; i++)
+    {
+        cin >> x;
+        p = new ListNode(x);
+        temp->next = p;
+        temp = p;
+    }
+
+    (*head).display(head);
+    cout << endl;
+    cout << "Size of linked list:" << endl;
+    int length = Solution().length(head);
+    cout << length << endl;
+    int n;
+    cout << "enter the node to be deleted from end : " << endl;
+    cin >> n;
+    int f;
+    f = ((length - n) + 1);
+    cout << " element from front is on node : " << f << endl;
+    Solution sol;
+    ListNode *res = sol.removeNthFromEnd(head, n);
+    (*res).display(res);
+    return 0;
+}
