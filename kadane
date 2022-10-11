@@ -1,0 +1,36 @@
+#include<iostream>
+#include<climits>
+using namespace std;
+ 
+int maxSubArrsum(int a[], int l)
+{
+    int so_far = INT_MIN, end = 0;
+ 
+    for (int i = 0; i < l; i++)
+    {
+        end = end + a[i];
+        if (so_far < end)
+            so_far = end;
+ 
+        if (end < 0)
+            end = 0;
+    }
+    return so_far;
+}
+ 
+int main()
+{
+    int l;
+    cout << "Input array size";
+    cin >> l;
+    int a[l];
+    cout << "Input array";
+    for(int i=0; i<l; i++)
+    { 
+        cin >> a[i];
+        
+    }
+    int max = maxSubArrsum(a, l);
+    cout << "Maximum contiguous sum is " << max;
+    return 0;
+}
