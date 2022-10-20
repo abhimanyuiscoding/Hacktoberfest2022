@@ -1,0 +1,82 @@
+#include<iostream>
+using namespace std;
+class fraction {
+	int den;
+	int num;
+public:
+	//default constructor
+	fraction() { num = 0; den = 0; }
+	fraction(int num,int den)
+	{
+		this->num = num;
+		this->den = den;
+	}
+	//set function
+	void set(int n, int d);
+	int getn();
+    int getd();
+	fraction add(fraction&, fraction&);
+};
+void fraction::set(int n,int d)
+{
+	num = n;
+	den = d;
+}
+int fraction::getn()
+{
+	return num;
+}
+int fraction::getd()
+{
+	return den;
+}
+fraction fraction::add(fraction& f1, fraction& f2)
+{
+	fraction f3;
+
+	if (f1.den == f2.den)
+	{
+		f3.den = f2.den;
+		f3.num = f1.num + f2.num;
+		cout << f3.num << "/" << f3.den << endl;
+
+	}
+	else
+	{
+		f3.den = f1.den * f2.den;
+		f3.num = ((f3.den / f1.den) * f1.num) + ((f3.den / f2.den) * f2.num);
+		cout << f3.num << "/" << f3.den << endl;
+
+	}
+	return f3;
+}
+
+int main()
+{
+	int n, d;
+	cout << "enter numerator and denominator for first fraction" << endl;
+	cin >> n >> d;
+	if (d <= 0)
+	{
+		cout << "not valid" << endl;
+		cin >> d;
+	}
+	fraction f1(n, d);
+	cout << f1.getn() << "/ " << f1.getd() << endl;
+	fraction f2;
+	cout << "enter numerator and denominator for 2nd fraction" << endl;
+
+	cin >> n>>d;
+	if (d <= 0)
+	{
+		cout << "not valid" << endl;
+		cin >> d;
+	}
+	//using setters to set value.
+	f2.set(n, d);
+	cout << f2.getn() << "/ " << f2.getd() << endl;
+
+	fraction f4;
+	f4.add(f1, f2);
+
+}
