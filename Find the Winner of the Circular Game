@@ -1,0 +1,26 @@
+class Solution {
+public:
+ void solve (vector<int> & vec,int k,int curr_ind,int *ans){
+        if(vec.size()==1){
+            *ans= vec[0];
+            return;
+        }
+        
+        int ind = (curr_ind + (k-1)) % vec.size();
+        curr_ind= ind;
+        auto it = vec.begin();
+        vec.erase(it + ind);
+        
+        solve(vec,k,curr_ind,ans);
+    }
+    int findTheWinner(int n, int k) {
+        vector<int> vec;
+        for(int i =1;i<=n;i++){
+            vec.push_back(i);
+        }
+        int curr_ind = 0;
+        int ans= 0;
+        solve(vec,k,0,&ans);
+        return ans;
+    }
+};
